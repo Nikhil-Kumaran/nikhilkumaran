@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { siteTitle, name } from "../utils/constants";
 import Link from "next/link";
-import styles from "./layout.module.css";
+import styles from "./Layout.module.css";
 import Profile from "../public/images/profile.svg";
 
 export default function Layout({ children, post, home }) {

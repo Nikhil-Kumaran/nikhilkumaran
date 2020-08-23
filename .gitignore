@@ -31,3 +31,5 @@ yarn-error.log*
 
 # mdx
 /.mdx-data
+
+.vercel
