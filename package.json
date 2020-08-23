@@ -2,6 +2,7 @@
   "name": "nikhilkumaran",
   "version": "0.1.0",
   "description": "My blog website",
+  "license": "MIT",
   "author": {
     "name": "Nikhil Kumaran S",
     "url": "http://nikhilkumaran.vercel.app/"
