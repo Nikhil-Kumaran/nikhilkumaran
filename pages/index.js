@@ -1,54 +1,93 @@
+import React from "react";
+import Layout from "../components/Layout";
 import Head from "next/head";
-import Link from "next/link";
-import Layout, { siteTitle } from "../components/layout";
+import { siteTitle, name } from "../utils/constants";
+import BlogPost from "../components/BlogPost";
 import utilStyles from "../styles/utils.module.css";
-import { getSortedPostsData } from "../utils/posts";
-import Date from "../components/date";
+import Twitter from "../public/images/twitter.svg";
+import GitHub from "../public/images/github.svg";
+import LinkedIn from "../public/images/linkedin.svg";
+import DEV from "../public/images/dev-dot-to.svg";
+import Pen from "../public/images/pen.svg";
+import Npm from "../public/images/npm.svg";
 
-export default function Home({ allPostsData }) {
+import { frontMatter as createReactApp } from "./blog/dont-use-create-react-app.mdx";
+import { frontMatter as reactPerformance } from "./blog/react-performance-improvements.mdx";
+
+const Index = () => {
   return (
-    <Layout home>
+    <Layout>
       <Head>
         <title>Home | {siteTitle}</title>
+        <meta property="og:title" content={name} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nikhilkumaran.vercel.app" />
+        <meta
+          property="og:image"
+          content="https://nikhilkumaran.vercel.app/images/profile.jpeg"
+        />
+        <meta
+          property="og:description"
+          content="Frontend Engineer | ReactJS | Tech Writer/Speaker"
+        />
       </Head>
-      <section className={utilStyles.headingMd}>
-        <p>
-          I'm a Frontend Engineer, currently focussing on ReactJS. I'm a
-          constant learner and I also occasionally share my knowledge by writing
-          blog posts, giving tech talks, and contributing to open-source
-          projects. Recently, I started doing CSS arts which you can check out
-          on{" "}
-          <a href="https://codepen.io/NikhilKumaran" target="_blank">
-            Codepen
-          </a>
-          . Apart from code, I'd like to play cards, chess, and badminton.
-        </p>
-      </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href="/posts/[id]" as={`/posts/${id}`}>
-                <a>{title}</a>
-              </Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <p>
+        Hi 👋🏽 I'm Nikhil Kumaran, a Frontend Engineer at{" "}
+        <a href="https://www.qubecinema.com/#Products">Qube Cinema</a>,
+        currently focussing on ReactJS. I'm a constant learner and I also
+        occasionally share my knowledge by writing blog posts, giving tech
+        talks, and contributing to open-source projects. Recently, I started
+        doing CSS arts which you can check out on{" "}
+        <a href="https://codepen.io/NikhilKumaran">Codepen</a>. Apart from code,
+        I'd like to play cards🃏, chess ♛, and badminton 🏸.
+      </p>
+      <br />
+      <div className={utilStyles.socialIcons}>
+        <a
+          className={`${utilStyles.socialIcon} ${utilStyles.twitter}`}
+          href="https://twitter.com/iNikhilKumaran"
+        >
+          <Twitter />
+        </a>
+        <a
+          className={`${utilStyles.socialIcon} ${utilStyles.github}`}
+          href="https://github.com/Nikhil-Kumaran"
+        >
+          <GitHub />
+        </a>
+        <a
+          className={`${utilStyles.socialIcon} ${utilStyles.linkedin}`}
+          href="https://www.linkedin.com/in/nikhilkumaran"
+        >
+          <LinkedIn />
+        </a>
+        <a
+          className={`${utilStyles.socialIcon} ${utilStyles.npm}`}
+          href="https://www.npmjs.com/~nikhil-kumaran"
+        >
+          <Npm />
+        </a>
+        <a
+          className={`${utilStyles.socialIcon}`}
+          href="https://codepen.io/NikhilKumaran"
+        >
+          <Pen />
+        </a>
+        <a
+          className={`${utilStyles.socialIcon} ${utilStyles.dev}`}
+          href="https://dev.to/nikhilkumaran"
+        >
+          <DEV />
+        </a>
+      </div>
+      <br />
+      <h1>Popular blog posts</h1>
+      <ul className={utilStyles.list}>
+        <BlogPost {...createReactApp} />
+        <BlogPost {...reactPerformance} />
+      </ul>
     </Layout>
   );
-}
+};
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
-}
+export default Index;

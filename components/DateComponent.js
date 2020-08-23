@@ -5,5 +5,6 @@ export default function DateComponent({ dateString }) {
     day: "2-digit",
     year: "numeric",
   });
+
   return <time dateTime={dateString}>{date}</time>;
 }

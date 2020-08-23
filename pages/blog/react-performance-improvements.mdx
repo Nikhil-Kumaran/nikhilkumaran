@@ -1,0 +1,85 @@
+---
+title: 'React Performance Improvements: Make your React app Performant.'
+date: '2020-08-08'
+summary: 'Make your React app performant by preventing unnecessary re-renders'
+---
+
+## Introduction
+
+In this blog post, I'll explain some methods which you can use to improve the performance of your ReactJS application. By performance, I mean the user interactivity performance, like reducing sluggishness, slowness or freeze issue, and not the page load performance like [reducing bundle size](https://dev.to/nikhilkumaran/webpack-optimizations-production-ready-react-app-1jl3). 
+
+> Premature optimization is the root of all evil
+
+I agree with this quote but at the same time knowing what could go wrong and preventing it, is always a plus.
+
+## Causes for sluggishness in UI
+
+- Unnecessary re-rendering of components.
+- Too much data being rendered on the UI. - Will write about this in the next blog post.
+
+## Preventing unnecessary re-renders
+
+### Use Memoized/Pure components
+
+Components should re-render only when its `state` or `props` changes. React by default doesn't do this. When a component is updated(state/props changes) all of its child components are re-rendered. To avoid this we wrap the child component with `React.memo`
+
+**Eg:**
+[react-performance-eg-1](https://codesandbox.io/s/react-performance-eg-1-wcg93)
+
+In the above example, we have an App component which has an input field that changes the `input` state and we have a `Counter` component which has a button that increments the `count` state. We also have a console.log which prints on every re-render of the Counter component. 
+
+When you click the button the count is incremented and the console.log is triggered. This is fine because our component state(`count`) changes so our component re-renders. 
+Now, when you type on the input field you will again see that the console.log is triggered. This shouldn't happen because the `Counter`'s state(count) and props(label) both are not changed. 
+So to avoid this unnecessary re-render we wrap the `Counter` component with `React.memo` By doing this we memorized our component which means when there is no change in the input(state/props) the output won't change(re-render).
+
+If you use a Class component you can prevent the re-render by extending the `Counter` component with `React.PureComponent` instead of `React.Component`(Refer below)
+
+[react-performance-class-components-eg-1](https://codesandbox.io/s/react-performance-class-components-eg-1-54lu0)
+
+### Use React.useCallback for function props
+
+When you send a callback function as a prop, whenever your component updates new reference of the function will be created and passed to the child which makes the child re-render. To avoid this we use React.useCallback.
+
+**Eg:**
+[react-performance-eg-2](https://codesandbox.io/s/react-performance-eg-2-onbyy)
+
+I've changed the previous example by adding an extra prop `clearInput`(callback function).
+This function clears the input field. In the `Counter` component I'm calling this on even values of `count`. Now, when you type in the input field, the `Counter` component is re-rendered because the function reference changes each time you type(input state changes). 
+To avoid this, we create the callback function with [React.useCallback](https://reactjs.org/docs/hooks-reference.html#usecallback) and `setInput` as its dependency.
+Now if you type, the `Counter` component doesn't re-render.
+
+In the case of class component, you should define a function as a class method and bind the method in the constructor or use arrow functions(Refer code below).
+
+[react-performance-class-components-eg-2](https://codesandbox.io/s/react-performance-class-components-eg-2-j3zm4)
+
+### Use React.useMemo for object props.
+
+Similar to functions, when you send an object as a prop, whenever your component updates new object reference will be created(even though the value of the object is the same) and passed to the child which makes the child re-render. To avoid this we use React.useMemo.
+
+**Eg:**
+[react-performance-eg-3](https://codesandbox.io/s/react-performance-eg-3-nnrwy)
+
+I've changed the previous example by adding another input field and an extra prop `data`(object).
+This `data` prop depends on `input2` state, so it changes whenever when we type on the second input field. But it shouldn't change when we type on the first input field.
+To fix this we create the `data` object using [React.useMemo](https://reactjs.org/docs/hooks-reference.html#usememo) and `input2` as its dependency.
+Now if you type on the first input field the `Counter` component doesn't re-render.
+
+In the case of class component, you should have the data object in the state and use `componentDidUpdate` lifecycle method to check for state/props change, and based on that update the `data` object(Refer code below).
+
+[react-performance-class-components-eg-3](https://codesandbox.io/s/react-performance-class-components-eg-3-u7msz)
+
+Great. Now our React App is performant. If you have a simple app, these optimizations don't make much difference. But if your app is already showing signs of sluggishness, these changes definitely will make a difference. Also, before you start optimizing your app, use [React dev tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)(profiler) to easily identify which components are causing issues.
+
+## Recap
+
+- The main cause of sluggishness is the unnecessary re-rendering of components.
+- Memoize your functional component with `React.memo`
+- Make your class component pure by extending `React.PureComponent`
+- Use `React.useCallback` when sending functions as props
+- Use class methods and bind them in the constructor when necessary(in case of class components)
+- Use `React.useMemo` when sending objects as props
+- Have your objects in state and update them by comparing, using `componentDidUpdate`(in case of class components)
+
+That's it, folks, Thanks for reading this blog post. Hope it's been useful for you. Please do comment your questions and suggestions. As mentioned in the beginning, I'll cover the "Too much data being rendered on the UI" case in the next blog post. Stay tuned.
+
+

@@ -1,1 +1,1 @@
-Blog website - I write about ReactJS
+My blog website built with Next.js + MDX.

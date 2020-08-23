@@ -1,0 +1,53 @@
+---
+title: "Building your own React Hooks"
+date: "2020-08-22"
+summary: "Create custom hooks and share stateful logic across React components"
+---
+
+## Hooks
+
+Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.
+
+React has various build-in hooks,
+
+- useState
+- useEffect
+- useContext
+- useReducer
+- useCallback
+- useMemo
+- useRef
+- useImperativeHandle
+- useLayoutEffect
+- useDebugValue
+
+## Custom Hooks
+
+When we want to share stateful logic among react components, we can go for custom hooks. A custom Hook is just a JavaScript function whose name starts with `use` and that may call other react Hooks.
+
+Let's create a `useClipboard` hook which copies a given text to the clipboard. We'll use the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) to achieve this.
+
+Unfortunately, Firefox doesn't fully support **Clipboard API** so make sure you use Chrome or Safari.
+
+You can view the end result here - https://7lyrf.csb.app/
+When you click on `copy` button, the code will be copied to your clipboard and you can paste it anywhere. Note that when you try to click the `copy` button within the `codesandbox` you will get permission denied, so open the output link in the new tab and interact with it.
+
+Let's first look at the `Clipboard.js` file. Clipboard API does asynchronous read from and write to the system clipboard. So I'm setting `isCopied` state to `true` when our text is copied successfully and setting it to `false` when there is an error.
+
+`setClipboard` is where we define the logic for copying to clipboard. First I'm checking if I have `clipboard-write` permission. If the permission is granted or if it is prompted to the user, we can use `navigator.clipboard.writeText` to set our text to the system clipboard. I'm returning `[isCopied, setClipboard]` similar to how useState returns two variables. You can return any number of values though.
+
+Next, I'm using useEffect to reset the `isCopied` state after a specified time interval. Finally exporting our `useClipboard` hook.
+
+Now let's look at how we use our custom hook. In the `App.js` file, I'm importing our `useClipboard` hook and calling it with a time interval. As we defined, it will return `isCopied` bool and `setClipboard` function which we can use to set our text to the clipboard.
+
+I have a `code` tag with `console.log('Hello world')` text and a button `copy` which when clicked will copy the content of the `code` to our system clipboard. When the text is copied I'm changing the button label to `copied` based on the `isCopied` state and resetting back to `copy` after our specified interval.
+Great. Now we implemented our own custom hook which we can share among our components.
+
+That's it, folks, thanks for reading this blog post. Hope it's been useful for you. Please do comment your questions and suggestions
+
+## References
+
+- https://reactjs.org/docs/hooks-custom.html
+- https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API
+- https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
+- https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API

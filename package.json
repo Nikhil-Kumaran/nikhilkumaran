@@ -1,18 +1,30 @@
 {
   "name": "nikhilkumaran",
   "version": "0.1.0",
-  "private": true,
+  "description": "My blog website",
+  "author": {
+    "name": "Nikhil Kumaran S",
+    "url": "http://nikhilkumaran.vercel.app/"
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "rm -rf .next && rm -rf .mdx-data && next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "gray-matter": "^4.0.2",
-    "next": "^9.5.2",
+    "@mdx-js/loader": "^1.6.16",
+    "@mdx-js/react": "^1.6.16",
+    "@next/mdx": "^9.5.2",
+    "mdx-prism": "^0.3.1",
+    "next": "9.5.0",
+    "next-mdx-enhanced": "^3.1.0",
+    "nprogress": "^0.2.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "remark": "^12.0.1",
-    "remark-html": "^12.0.0"
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "babel-plugin-import-glob-array": "^0.2.0",
+    "babel-plugin-inline-react-svg": "^1.1.1",
+    "rehype": "^11.0.0"
   }
 }
