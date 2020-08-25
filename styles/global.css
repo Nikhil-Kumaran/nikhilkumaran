@@ -9,6 +9,15 @@ body {
   font-size: 18px;
 }
 
+html[data-theme="dark"] {
+  background-color: black;
+  color: white !important;
+}
+
+html[data-theme="dark"] a {
+  color: #1da1f2;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -33,6 +42,7 @@ img {
 }
 
 #nprogress .bar {
+  height: 3px !important;
   background: #1da1f2 !important;
 }
 

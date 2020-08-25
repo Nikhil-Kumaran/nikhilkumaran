@@ -76,21 +76,22 @@
 }
 
 .twitter:hover {
-  fill: #1da1f2;
+  fill: #1da1f2 !important;
 }
 
 .linkedin:hover {
-  fill: #0077b5;
-}
-
-.github:hover {
-  fill: #181717;
-}
-
-.dev:hover {
-  fill: #0a0a0a;
+  fill: #0077b5 !important;
 }
 
 .npm:hover {
-  fill: #cb3837;
+  fill: #cb3837 !important;
+}
+
+html[data-theme="dark"] .lightText {
+  color: #949494;
+}
+
+html[data-theme="dark"] .socialIcon {
+  fill: white;
+  box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.418);
 }

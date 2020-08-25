@@ -4,6 +4,8 @@ date: '2020-08-15'
 summary: 'Learn how you can use web workers to perform laborious tasks in a background thread without blocking the User Interface.'
 ---
 
+import Codesandbox from "../../components/Codesandbox"
+
 In this post, I'll explain how you can use web workers to perform CPU intensive tasks without blocking the User Interface.
 
 ## What is a Web Worker?
@@ -18,7 +20,7 @@ Web workers run in another global context that is different from the current win
 
 First, let's see a laborious task(calculating prime numbers) implemented without web workers.
 
-[User interface w/o web worker](https://codesandbox.io/s/user-interface-wo-web-worker-xs7pr)
+<Codesandbox src="https://codesandbox.io/embed/user-interface-wo-web-worker-xs7pr" />
 
 Here we have an animation running smoothly at 60fps in the main thread. If you click on the `CPU intensive task` button, it prints the last prime number generated within a random range. 
 This calculation is also done on the same main thread without using web workers. So when you click the button, the animation freezes for a second(depends on your system specs). 
@@ -94,7 +96,7 @@ Result
 Now if I click the button, the animation runs smoothly without any issues as our laborious task now runs separately on a background thread. 
 You can check the result [here](https://codepen.io/NikhilKumaran/project/full/AOjQYm)
 
-I tried doing web worker example in [codesandbox](https://codesandbox.io/s/with-web-worker-0s3q7), but for some reason, I couldn't import the worker file(`const worker = new Worker("src/worker.js")`).
+I tried doing web worker example in [codesandbox](https://codesandbox.io/s/with-web-worker-0s3q7), but for some reason, I couldn't import the worker file(`const worker = new Worker("src/worker.js")`). Also codepen doesn't have embed option for projects yet.
 
 That's it, folks, Thanks for reading this blog post. Hope it's been useful for you. Please do comment your questions and suggestions.
 

@@ -1,10 +1,37 @@
 import Head from "next/head";
-import { siteTitle, name } from "../utils/constants";
+import { useState, useEffect } from "react";
+import { siteTitle, name, themes } from "../utils/constants";
 import Link from "next/link";
 import styles from "./Layout.module.css";
 import Profile from "../public/images/profile.svg";
+import prismLight from "../styles/prismLight";
+import prismDark from "../styles/prismDark";
 
 export default function Layout({ children, post, home }) {
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const preferedTheme = localStorage.getItem("theme");
+    if (preferedTheme) {
+      setTheme(preferedTheme);
+    }
+  }, []);
+
+  useEffect(() => {
+    const html = document.getElementsByTagName("html")[0];
+    html.dataset.theme = theme;
+  }, [theme]);
+
+  const handleThemeChange = () => {
+    if (theme === themes.light) {
+      setTheme(themes.dark);
+      localStorage.setItem("theme", themes.dark);
+    } else {
+      setTheme(themes.light);
+      localStorage.setItem("theme", themes.light);
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -18,40 +45,57 @@ export default function Layout({ children, post, home }) {
         <meta name="twitter:site" content="@iNikhilKumaran" />
         <meta name="twitter:creator" content="@iNikhilKumaran" />
       </Head>
-      <header className={styles.header}>
-        <div className={styles.headerWrap}>
-          <div className={styles.logo}>
-            <Link href="/">
-              <a>
-                <Profile className={styles.headerImage} />
-              </a>
-            </Link>
-            <h1>{name}</h1>
+      <div>
+        <header className={styles.header}>
+          <div className={styles.headerWrap}>
+            <div className={styles.logo}>
+              <Link href="/">
+                <a>
+                  <Profile className={styles.headerImage} />
+                </a>
+              </Link>
+              <h1>{name}</h1>
+            </div>
+            <div className={styles.headerMenus}>
+              <button
+                className={styles.toggleTheme}
+                onClick={handleThemeChange}
+              >
+                <div className={styles[theme]}></div>
+              </button>
+              <Link href="/blog">
+                <a>Blog</a>
+              </Link>
+            </div>
           </div>
-          <div className={styles.headerMenus}>
+        </header>
+
+        <main className={styles.container}>{children}</main>
+        {theme === themes.light ? (
+          <style jsx global>
+            {prismLight}
+          </style>
+        ) : (
+          <style jsx global>
+            {prismDark}
+          </style>
+        )}
+
+        {post && (
+          <div className={styles.container}>
             <Link href="/blog">
-              <a>Blog</a>
+              <a>← Back to blog</a>
             </Link>
           </div>
-        </div>
-      </header>
-
-      <main className={styles.container}>{children}</main>
-
-      {post && (
-        <div className={styles.container}>
-          <Link href="/blog">
-            <a>← Back to blog</a>
-          </Link>
-        </div>
-      )}
-      {home && (
-        <div className={styles.container}>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
+        )}
+        {home && (
+          <div className={styles.container}>
+            <Link href="/">
+              <a>← Back to home</a>
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

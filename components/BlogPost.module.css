@@ -10,3 +10,7 @@
   text-decoration-color: #1da1f2;
   text-decoration-thickness: 3px;
 }
+
+html[data-theme="dark"] .title {
+  color: white !important;
+}

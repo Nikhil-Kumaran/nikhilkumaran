@@ -5,7 +5,6 @@ import NProgress from "nprogress";
 import "../styles/reset.css";
 import "nprogress/nprogress.css";
 import "../styles/global.css";
-import "../styles/prismBase.css";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
