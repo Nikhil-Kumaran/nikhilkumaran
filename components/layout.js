@@ -7,6 +7,8 @@ import Profile from "../public/images/profile.svg";
 import prismLight from "../styles/prismLight";
 import prismDark from "../styles/prismDark";
 
+const ThemeContext = React.createContext(themes.light);
+
 export default function Layout({ children, post, home }) {
   const [theme, setTheme] = useState("light");
 
@@ -45,7 +47,7 @@ export default function Layout({ children, post, home }) {
         <meta name="twitter:site" content="@iNikhilKumaran" />
         <meta name="twitter:creator" content="@iNikhilKumaran" />
       </Head>
-      <div>
+      <ThemeContext.Provider value={theme}>
         <header className={styles.header}>
           <div className={styles.headerWrap}>
             <div className={styles.logo}>
@@ -95,7 +97,9 @@ export default function Layout({ children, post, home }) {
             </Link>
           </div>
         )}
-      </div>
+      </ThemeContext.Provider>
     </div>
   );
 }
+
+export { ThemeContext };
