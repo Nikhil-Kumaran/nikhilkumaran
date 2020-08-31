@@ -21,7 +21,22 @@ const MDXLayout = (frontMatter) => {
             content={`https://nikhilkumaran.vercel.app/${slug}`}
           />
           <meta property="og:description" content={frontMatter.summary} />
+          <meta name="twitter:card" content="summary_large_image" />
+          {frontMatter.image && (
+            <meta
+              property="og:image"
+              content={`https://nikhilkumaran.vercel.app/images/blog/${frontMatter.image}`}
+            />
+          )}
         </Head>
+        {frontMatter.image && (
+          <div className="blogImage">
+            <img
+              src={`/images/blog/${frontMatter.image}`}
+              alt={frontMatter.title}
+            />
+          </div>
+        )}
         <div className="title">
           <h1>{frontMatter.title}</h1>
           <small className={utilStyles.lightText}>

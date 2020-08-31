@@ -50,3 +50,7 @@ img {
   border-top-color: #1da1f2 !important;
   border-left-color: #1da1f2 !important;
 }
+
+.blogImage {
+  margin-bottom: 2rem;
+}

@@ -1,16 +1,17 @@
 ---
-title: 'Web Workers: For non-blocking User Interface'
-date: '2020-08-15'
-summary: 'Learn how you can use web workers to perform laborious tasks in a background thread without blocking the User Interface.'
+title: "Web Workers: For non-blocking User Interface"
+date: "2020-08-15"
+summary: "Learn how you can use web workers to perform laborious tasks in a background thread without blocking the User Interface."
+image: "web-workers.jpeg"
 ---
 
-import Codesandbox from "../../components/Codesandbox"
+import Codesandbox from "../../components/Codesandbox";
 
 In this post, I'll explain how you can use web workers to perform CPU intensive tasks without blocking the User Interface.
 
 ## What is a Web Worker?
 
-A web worker is a JavaScript code that runs on a background thread, separate from the main execution thread of a web application. 
+A web worker is a JavaScript code that runs on a background thread, separate from the main execution thread of a web application.
 
 The advantage of this is that CPU intensive tasks can be performed in a separate thread, allowing the main (usually the UI) thread to run without being blocked/slowed down.
 
@@ -22,13 +23,14 @@ First, let's see a laborious task(calculating prime numbers) implemented without
 
 <Codesandbox src="https://codesandbox.io/embed/user-interface-wo-web-worker-xs7pr" />
 
-Here we have an animation running smoothly at 60fps in the main thread. If you click on the `CPU intensive task` button, it prints the last prime number generated within a random range. 
-This calculation is also done on the same main thread without using web workers. So when you click the button, the animation freezes for a second(depends on your system specs). 
+Here we have an animation running smoothly at 60fps in the main thread. If you click on the `CPU intensive task` button, it prints the last prime number generated within a random range.
+This calculation is also done on the same main thread without using web workers. So when you click the button, the animation freezes for a second(depends on your system specs).
 The animation I used is just for our easy visualization. All the user interactions will also be blocked because of our laborious operation.
 
 To avoid this we can move our CPU intensive task to the separate background thread using web workers. Since web workers cannot modify the DOM and print the result, we'll communicate with it by passing messages.
 
 index.js file - Main thread
+
 ```javascript
 const iterations = 200;
 const multiplier = 1000000000;
@@ -53,9 +55,11 @@ if (!window.Worker) {
   document.querySelector("button").onclick = doPointlessComputationsInWorker;
 }
 ```
+
 Here in index.js file, we are posting the input values(iterations and multiplier) using `worker.postMessage` to our web worker and waiting for the result via `worker.onmessage`
 
 worker.js - Background thread.
+
 ```javascript
 function calculatePrimes(iterations, multiplier) {
   var primes = [];
@@ -88,20 +92,20 @@ onmessage = function (e) {
   });
 };
 ```
+
 Here in worker.js file, we are receiving the input(sent from index.js) using `onmessage` and calculating the primes and sending the data back to the main thread using `postMessage`
 
 Result
 ![non-blocking UI](https://dev-to-uploads.s3.amazonaws.com/i/yzfgkvoy3c6d34ifocah.gif)
 
-Now if I click the button, the animation runs smoothly without any issues as our laborious task now runs separately on a background thread. 
+Now if I click the button, the animation runs smoothly without any issues as our laborious task now runs separately on a background thread.
 You can check the result [here](https://codepen.io/NikhilKumaran/project/full/AOjQYm)
 
 I tried doing web worker example in [codesandbox](https://codesandbox.io/s/with-web-worker-0s3q7), but for some reason, I couldn't import the worker file(`const worker = new Worker("src/worker.js")`). Also codepen doesn't have embed option for projects yet.
 
-That's it, folks, Thanks for reading this blog post. Hope it's been useful for you. Please do comment your questions and suggestions.
+That's it, folks, Thanks for reading this blog post. Hope it's been useful for you.
 
 ## References
+
 - https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API
 - https://blog.teamtreehouse.com/using-web-workers-to-speed-up-your-javascript-applications
-
-

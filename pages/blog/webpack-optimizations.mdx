@@ -1,7 +1,8 @@
 ---
-title: 'Webpack Optimizations - Production-ready React App'
-date: '2020-07-26'
-summary: 'Simple webpack optimization you can do to make your React app ready for production'
+title: "Webpack Optimizations - Production-ready React App"
+date: "2020-07-26"
+summary: "Simple webpack optimization you can do to make your React app ready for production"
+image: "webpack-optimizations.jpg"
 ---
 
 ## Webpack
@@ -11,19 +12,20 @@ Webpack is a static module bundler for modern JavaScript applications(Eg. React)
 The code/configs used in this blog are available in [this](https://github.com/Nikhil-Kumaran/reactjs-boilerplate) repo.
 
 A simple webpack.config.js for React application looks like this.
+
 ```javascript
-const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, "build"),
+    filename: "bundle.js",
   },
   resolve: {
-    modules: [path.join(__dirname, 'src'), 'node_modules'],
+    modules: [path.join(__dirname, "src"), "node_modules"],
     alias: {
-      react: path.join(__dirname, 'node_modules', 'react'),
+      react: path.join(__dirname, "node_modules", "react"),
     },
   },
   module: {
@@ -32,31 +34,32 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
         },
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: "style-loader",
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
           },
         ],
       },
-      { // If you are not using less ignore this rule
+      {
+        // If you are not using less ignore this rule
         test: /\.less$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: "style-loader",
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
           },
           {
-            loader: 'less-loader',
+            loader: "less-loader",
           },
         ],
       },
@@ -64,11 +67,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: './index.html',
+      template: "./index.html",
     }),
   ],
 };
 ```
+
 ![single bundle file](https://dev-to-uploads.s3.amazonaws.com/i/7ar4dqguqpj9k0alvr30.png)
 
 Out of the box, with this above config, the webpack generates one JS bundle file. For large projects/applications, this bundle size becomes very large(in MiBs). So it is essential to split the single bundle into multiple chunks and load them only when needed.
@@ -87,6 +91,7 @@ output: {
   filename: '[name].[chunkhash].bundle.js',
 }
 ```
+
 ![multiple bundles with hash](https://dev-to-uploads.s3.amazonaws.com/i/zovyc0d2cehxybl6gqvb.png)
 
 It's great that we split our bundles based on routes without any additional configuration in webpack, but still, our main bundle contains all the vendor codes(node_modules). We can add a few configs to tell webpack how we want to further spit the bundles.
@@ -113,9 +118,10 @@ optimization: {
   },
 }
 ```
+
 ![multiple bundles with hash and with further vendor chunk](https://dev-to-uploads.s3.amazonaws.com/i/18yq5w8oxmuvza8ngo25.png)
 
-Let's go through the config. `optimization.splitChunks.cacheGroups` is where we define our chunks. Here I used the chunk name `vendors` for all the dependencies in `node_modules` except `antd`([Ant Design](https://ant.design/) is a UI component library) and I used the chunk name `antd` for the Ant design dependency alone. 
+Let's go through the config. `optimization.splitChunks.cacheGroups` is where we define our chunks. Here I used the chunk name `vendors` for all the dependencies in `node_modules` except `antd`([Ant Design](https://ant.design/) is a UI component library) and I used the chunk name `antd` for the Ant design dependency alone.
 
 The reason why we are making the vendors separate is that, once our project gets matured, we won't be frequently adding any new dependencies, so our chunk filename hash won't be changing for every build and the browser can serve this vendor chunk from the cache.
 I separated antd from the vendor chunk because this can be our own design library where we frequently add/update components, so any change in this chunk should not affect our vendor chunk hash.
@@ -140,9 +146,11 @@ performance: {
   },
 }
 ```
+
 ![multiple bundles with hash and with further vendor chunk and gzipped](https://dev-to-uploads.s3.amazonaws.com/i/xic7ff9bjlfavsccjuad.png)
 
 **To sum up,**
+
 - We set up a minimum webpack config to run our react app.
 - We used lazy loading to split our single bundle into multiple chunks.
 - We used hash filenames to version our bundle files.
@@ -151,9 +159,10 @@ performance: {
 
 You can see the full webpack configuration [here](https://github.com/Nikhil-Kumaran/reactjs-boilerplate/blob/master/webpack.config.js)
 
-That's it, folks, Thanks for reading this blog. Hope it's been useful for you. Please do comment on your questions and suggestions.
+That's it, folks, Thanks for reading this blog. Hope it's been useful for you.
 
 ### References:
+
 - https://reactjs.org/docs/code-splitting.html
 - https://webpack.js.org/configuration/optimization/
 - https://webpack.js.org/plugins/split-chunks-plugin/

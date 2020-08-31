@@ -13,9 +13,9 @@ export default function Layout({ children, post, home }) {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const preferedTheme = localStorage.getItem("theme");
-    if (preferedTheme) {
-      setTheme(preferedTheme);
+    const preferredTheme = localStorage.getItem("theme");
+    if (preferredTheme) {
+      setTheme(preferredTheme);
     }
   }, []);
 
@@ -43,7 +43,6 @@ export default function Layout({ children, post, home }) {
           content="Frontend Engineer | ReactJS | Tech Writer/Speaker"
         />
         <meta name="og:title" content={siteTitle} />
-        <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@iNikhilKumaran" />
         <meta name="twitter:creator" content="@iNikhilKumaran" />
       </Head>

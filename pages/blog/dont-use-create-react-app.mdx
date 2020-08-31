@@ -1,7 +1,8 @@
 ---
 title: "Don't use create-react-app: How you can set up your own reactjs boilerplate."
-date: '2020-08-01'
-summary: 'Learn how you can set up your own React boilerplate by retaining the advantages of create-react-app and eliminating its drawbacks.'
+date: "2020-08-01"
+summary: "Learn how you can set up your own React boilerplate by retaining the advantages of create-react-app and eliminating its drawbacks."
+image: "dont-use-cra.png"
 ---
 
 ## What is CRA?
@@ -11,20 +12,25 @@ Create React App is a toolchain built and maintained by developers at Facebook f
 ## Advantages of CRA
 
 - Get started with a single command
-```powershell 
+
+```powershell
 npx create-react-app my-app
 ```
+
 - Less to Learn. You can just focus on React alone and don't have to worry about webpack, babel, and other such build dependencies.
-- Only one build dependency `react-scripts`. This maintains all your build dependencies, so it's easy to maintain and upgrade with just one command. 
-```powershell 
+- Only one build dependency `react-scripts`. This maintains all your build dependencies, so it's easy to maintain and upgrade with just one command.
+
+```powershell
 npm install react-scripts@latest
 ```
+
 ### Disadvantages of CRA
+
 - Difficult to add custom build configs. One way to add custom configs is to eject the app, but then it overrides the **Only one build dependency** advantage. The other way is you can use packages like [customize-cra](https://github.com/arackaf/customize-cra) or [react-app-rewired](https://github.com/timarney/react-app-rewired) but then they have limited capabilities.
 - Abstracts everything. It's important to understand the things that need to run a React app. But due to it's **Only one build dependency** advantage, a beginner might think that `react-scripts` is the only dependency needed to run react apps and might not know that transpiler(babel), bundler(webpack) are the key dependencies which are used under the hood by `react-scripts`. This happened to me until I read this awesome [article](https://medium.com/the-node-js-collection/modern-javascript-explained-for-dinosaurs-f695e9747b70).
 - CRA is bloated - IMO. For example, CRA comes with SASS support, if you are using `plain CSS` or `Less` it's an extra dependency that you will never use. Here is a [package.json](https://github.com/Nikhil-Kumaran/ejected-react-app/blob/master/package.json) of an ejected CRA app.
 
-The alternative for CRA is to set up your own boilerplate. The only advantage that we can take from CRA is **Get started with a single command** and we can eliminate all of its disadvantages by setting up dependencies and configs by ourselves. We cannot take the other two advantages because it introduces two disadvantages(Abstracts everything and Difficult to add custom build configs). 
+The alternative for CRA is to set up your own boilerplate. The only advantage that we can take from CRA is **Get started with a single command** and we can eliminate all of its disadvantages by setting up dependencies and configs by ourselves. We cannot take the other two advantages because it introduces two disadvantages(Abstracts everything and Difficult to add custom build configs).
 
 [This](https://github.com/Nikhil-Kumaran/minimal-reactjs-boilerplate) repo has all the code used in this blog post.
 
@@ -57,18 +63,17 @@ npm install react react-dom --save
 Transpiler converts ECMAScript 2015+ code into a backward-compatible version of JavaScript in current and older browsers. We also use this to transpile JSX by adding presets.
 
 ```powershell
-npm install @babel/core @babel/preset-env @babel/preset-react --save-dev 
+npm install @babel/core @babel/preset-env @babel/preset-react --save-dev
 ```
 
 A simple babel config for a React app looks like this. You can add this config in .babelrc file or as a property in package.json.
+
 ```json
 {
-    "presets": [
-        "@babel/preset-env",
-        "@babel/preset-react"
-    ]
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
 }
 ```
+
 You can add various [presets](https://babeljs.io/docs/en/presets) and [plugins](https://babeljs.io/docs/en/plugins) based on your need.
 
 ### Bundler(Webpack)
@@ -76,24 +81,24 @@ You can add various [presets](https://babeljs.io/docs/en/presets) and [plugins](
 Bundler bundles your code and all its dependencies together in one bundle file(or more if you use code splitting).
 
 ```powershell
-npm install webpack webpack-cli webpack-dev-server babel-loader css-loader style-loader html-webpack-plugin --save-dev 
+npm install webpack webpack-cli webpack-dev-server babel-loader css-loader style-loader html-webpack-plugin --save-dev
 ```
 
 A simple webpack.config.js for React application looks like this.
 
 ```js
-const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, "build"),
+    filename: "bundle.js",
   },
   resolve: {
-    modules: [path.join(__dirname, 'src'), 'node_modules'],
+    modules: [path.join(__dirname, "src"), "node_modules"],
     alias: {
-      react: path.join(__dirname, 'node_modules', 'react'),
+      react: path.join(__dirname, "node_modules", "react"),
     },
   },
   module: {
@@ -102,17 +107,17 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
         },
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: "style-loader",
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
           },
         ],
       },
@@ -120,11 +125,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: './src/index.html',
+      template: "./src/index.html",
     }),
   ],
 };
 ```
+
 You can add various [loaders](https://webpack.js.org/loaders/) based on your need. Check out my blog post on [webpack optimizations](https://dev.to/nikhilkumaran/webpack-optimizations-production-ready-react-app-1jl3) where I talk about various webpack configs that you can add to make your React app production-ready.
 
 That is all the dependencies we need. Now let's add an HTML template file and a react component.
@@ -134,24 +140,23 @@ Let's create src folder and add index.html
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>React Boilerplate</title>
-</head>
-<body>
-  <div id="root"></div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Boilerplate</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
 ```
 
 Let's create a HelloWorld.js react component in the src folder
+
 ```js
-import React from 'react';
+import React from "react";
 
 const HelloWorld = () => {
-  return (
-      <h3>Hello World</h3>
-  );
+  return <h3>Hello World</h3>;
 };
 
 export default HelloWorld;
@@ -160,12 +165,12 @@ export default HelloWorld;
 Let's add index.js file to the src folder
 
 ```js
-import React from 'react';
-import { render } from 'react-dom';
+import React from "react";
+import { render } from "react-dom";
 
-import HelloWorld from './HelloWorld';
+import HelloWorld from "./HelloWorld";
 
-render(<HelloWorld />, document.getElementById('root'));
+render(<HelloWorld />, document.getElementById("root"));
 ```
 
 Finally, let's add the start and build scripts in package.json
@@ -176,15 +181,19 @@ Finally, let's add the start and build scripts in package.json
     "build": "webpack --mode=production"
   }
 ```
+
 That is it. Now our react app is ready to run. Try the commands `npm start` and `npm run build`.
 
-Now, let's implement the **Get started with a single command** advantage from CRA. Basically, we are going to use an executable JS file that runs when we type a specific command(your boilerplate name) in the command line. Eg. `reactjs-boilerplate new-project` For this, we are going to use [bin](https://docs.npmjs.com/files/package.json#bin) property in package.json. 
+Now, let's implement the **Get started with a single command** advantage from CRA. Basically, we are going to use an executable JS file that runs when we type a specific command(your boilerplate name) in the command line. Eg. `reactjs-boilerplate new-project` For this, we are going to use [bin](https://docs.npmjs.com/files/package.json#bin) property in package.json.
 
 Let's first create the executable JS file. Install [fs-extra](https://www.npmjs.com/package/fs-extra)
+
 ```powershell
 npm i fs-extra
 ```
+
 Create `bin/start.js` file on your project root with the following content.
+
 ```js
 #!/usr/bin/env node
 const fs = require("fs-extra");
@@ -293,7 +302,6 @@ exec(
     );
   }
 );
-
 ```
 
 Now let's map the executable JS file with a command. Paste this in your package.json
@@ -304,33 +312,35 @@ Now let's map the executable JS file with a command. Paste this in your package.
   }
 
 ```
+
 Now let's link the package(boilerplate) locally by running
+
 ```powershell
 npm link
 ```
 
 Now, when this command is typed in the terminal(command prompt), `your-boilerplate-name my-app`, our `start.js` executable is invoked and it creates a new folder named `my-app`, copies `package.json`, `webpack.config.js`, `gitignore`, `src/` and installs the dependencies inside `my-app` project.
 
-Great, now this works in your local. You can bootstrap React projects(with your own build configs) with just a single command. 
+Great, now this works in your local. You can bootstrap React projects(with your own build configs) with just a single command.
 
-You can also go one step further and publish your boilerplate to [npm registry](https://www.npmjs.com/). First, commit and push your code to GitHub and follow these [instructions](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages). 
+You can also go one step further and publish your boilerplate to [npm registry](https://www.npmjs.com/). First, commit and push your code to GitHub and follow these [instructions](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages).
 
-Hurray! We created our alternative to create-react-app within a few minutes, which is not bloated(you can add dependencies as per your requirement) and easier to add/modify build configs. 
+Hurray! We created our alternative to create-react-app within a few minutes, which is not bloated(you can add dependencies as per your requirement) and easier to add/modify build configs.
 
-Of course, our set up is very minimal, and it's certainly not ready for production. You have to add a few more webpack configs to [optimize](https://dev.to/nikhilkumaran/webpack-optimizations-production-ready-react-app-1jl3) your build. 
+Of course, our set up is very minimal, and it's certainly not ready for production. You have to add a few more webpack configs to [optimize](https://dev.to/nikhilkumaran/webpack-optimizations-production-ready-react-app-1jl3) your build.
 
 I've created a [reactjs-boilerplate](https://dev.to/nikhilkumaran/webpack-optimizations-production-ready-react-app-1jl3) with the production-ready build set up, with linters and pre-commit hooks. Give it a try. Suggestions and contributions are welcome.
 
 ### Recap
 
 - We saw the advantages and disadvantages of CRA.
-- We decided to take **Get started with a single command**  advantage from CRA and implement it in our project and eliminate all of its drawbacks.
+- We decided to take **Get started with a single command** advantage from CRA and implement it in our project and eliminate all of its drawbacks.
 - We added minimal webpack and babel configs required to run a react application
 - We created a HelloWorld.js react component, ran it using dev server, and build it.
 - We created an executable JS file and mapped it with a command name via bin property in the package.json.
 - We used `npm link` to link our boilerplate and made our boilerplate to bootstrap new react projects with a single command.
 
-That's it, folks, Thanks for reading this blog post. Hope it's been useful for you. Please do comment your questions and suggestions.
+That's it, folks, Thanks for reading this blog post. Hope it's been useful for you.
 
 ### References
 
@@ -338,7 +348,3 @@ That's it, folks, Thanks for reading this blog post. Hope it's been useful for y
 - https://github.com/Nikhil-Kumaran/reactjs-boilerplate
 - https://reactjs.org/docs/create-a-new-react-app.html#creating-a-toolchain-from-scratch
 - https://medium.com/the-node-js-collection/modern-javascript-explained-for-dinosaurs-f695e9747b70
-
-
-
-

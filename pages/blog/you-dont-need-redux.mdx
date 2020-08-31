@@ -1,0 +1,181 @@
+---
+title: "You probably don't need Redux: Use React Context + useReducer hook"
+date: "2020-08-31"
+summary: "Use redux only when necessary. Give Context + useReducer a try"
+image: "useReducer.png"
+---
+
+> I would like to amend this: don't use Redux until you have problems with vanilla React. - Dan Abramov
+
+Dan said this way back in 2016, and now that we have React Context and useReducer hook, the use cases of redux is very minimal. In this post, we will create a good old todo list example using Context and useReducer hook.
+
+First, let's set up our initial state and actions. Let our todo app have three actions - add, remove, and toggle completed.
+
+```javascript
+const initialState = {
+  todoList: [],
+};
+
+const actions = {
+  ADD_TODO_ITEM: "ADD_TODO_ITEM",
+  REMOVE_TODO_ITEM: "REMOVE_TODO_ITEM",
+  TOGGLE_COMPLETED: "TOGGLE_COMPLETED",
+};
+```
+
+Now let's add a reducer function to handle our actions.
+
+```javascript
+const reducer = (state, action) => {
+  switch (action.type) {
+    case actions.ADD_TODO_ITEM:
+      return {
+        todoList: [
+          ...state.todoList,
+          {
+            id: new Date().valueOf(),
+            label: action.todoItemLabel,
+            completed: false,
+          },
+        ],
+      };
+    case actions.REMOVE_TODO_ITEM: {
+      const filteredTodoItem = state.todoList.filter(
+        (todoItem) => todoItem.id !== action.todoItemId
+      );
+      return { todoList: filteredTodoItem };
+    }
+    case actions.TOGGLE_COMPLETED: {
+      const updatedTodoList = state.todoList.map((todoItem) =>
+        todoItem.id === action.todoItemId
+          ? { ...todoItem, completed: !todoItem.completed }
+          : todoItem
+      );
+      return { todoList: updatedTodoList };
+    }
+    default:
+      return state;
+  }
+};
+```
+
+Let's break it down.
+
+- In the `ADD_TODO_ITEM` action, I'm spreading the existing list and adding a new todo item to the list with `id`(unique-ish), `label`(user-entered value), and `completed` flag.
+- In the `REMOVE_TODO_ITEM` action, I'm filtering out the todo item that needs to be removed based on the id.
+- In the `TOGGLE_COMPLETED` action, I'm looping through all the todo items and toggling the completed flag based on the id.
+
+Now, let's wire these up with Context and useReducer. Let's create a `TodoListContext`.
+
+```javascript
+const TodoListContext = React.createContext();
+```
+
+Let's create a `Provider` function that returns our `TodoListContext`'s Provider.
+
+```javascript
+const Provider = ({ children }) => {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  const value = {
+    todoList: state.todoList,
+    addTodoItem: (todoItemLabel) => {
+      dispatch({ type: actions.ADD_TODO_ITEM, todoItemLabel });
+    },
+    removeTodoItem: (todoItemId) => {
+      dispatch({ type: actions.REMOVE_TODO_ITEM, todoItemId });
+    },
+    markAsCompleted: (todoItemId) => {
+      dispatch({ type: actions.TOGGLE_COMPLETED, todoItemId });
+    },
+  };
+
+  return (
+    <TodoListContext.Provider value={value}>
+      {children}
+    </TodoListContext.Provider>
+  );
+};
+```
+
+Let's break it down.
+
+- We are passing our `reducer` function and our `initialState` to the useReducer hook. This will return state and dispatch. The state will have our initialState and the dispatch is used to trigger our actions, just like in redux.
+- In the value object, we have todoList state, and three functions `addTodoItem`, `removeTodoItem`, and `markAsCompleted` which trigger `ADD_TODO_ITEM`, `REMOVE_TODO_ITEM`, and `TOGGLE_COMPLETED` actions respectively.
+- We are passing our value object as prop to the `TodoListContext`'s Provider, so that we can access it using `useContext`.
+
+Great, now our global store and reducers are setup. Let's now create two components `AddTodo` and `TodoList` which will consume our store.
+
+```javascript
+const AddTodo = () => {
+  const [inputValue, setInputValue] = React.useState("");
+  const { addTodoItem } = React.useContext(TodoListContext);
+
+  return (
+    <>
+      <input
+        type="text"
+        value={inputValue}
+        placeholder={"Type and add todo item"}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <button
+        onClick={() => {
+          addTodoItem(inputValue);
+          setInputValue("");
+        }}
+      >
+        Add
+      </button>
+    </>
+  );
+};
+```
+
+In `AddTodo`, we are using useContext to subscribe to our `TodoListContext` and getting `addTodoItem` dispatch function. This component has an input field where the user enters the todo item and an `add` button to add the todo item to the list.
+
+```javascript
+const TodoList = () => {
+  const { todoList, removeTodoItem, markAsCompleted } = React.useContext(
+    TodoListContext
+  );
+  return (
+    <ul>
+      {todoList.map((todoItem) => (
+        <li
+          className={todoItem.completed ? "completed" : ""}
+          key={todoItem.id}
+          onClick={() => markAsCompleted(todoItem.id)}
+        >
+          {todoItem.label}
+          <button
+            className="delete"
+            onClick={() => removeTodoItem(todoItem.id)}
+          >
+            X
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+};
+```
+
+In `TodoList` component, we are using useContext to subscribe to our `TodoListContext` and getting `todoList` state, `removeTodoItem`, and `andmarkAsCompleted` dispatch functions. We are mapping through the `todoList` and rendering the todo items and a remove(X) button next to it. On clicking on an item we are marking it as `complete` and when clicking on `X` button we are removing it from the list.
+
+Finally, let's wrap our two components with our Provider.
+
+```javascript
+export default function App() {
+  return (
+    <Provider>
+      <AddTodo />
+      <TodoList />
+    </Provider>
+  );
+}
+```
+
+Great. We used Context and useReducer hook to manage our state as an alternative to redux. You can check the working code in [codesandbox](https://codesandbox.io/s/context-plus-usereducer-64q43).
+
+That's it, folks, Thanks for reading this blog post. Hope it's been useful for you.
