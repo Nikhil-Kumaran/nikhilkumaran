@@ -12,7 +12,7 @@ const MDXLayout = (frontMatter) => {
       <Layout post>
         <Head>
           <title>
-            {frontMatter.title} | {siteTitle}
+            {frontMatter.title} - {siteTitle}
           </title>
           <meta property="og:title" content={frontMatter.title} />
           <meta property="og:type" content="blog" />

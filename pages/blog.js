@@ -17,8 +17,8 @@ const Blog = () => {
   return (
     <Layout home>
       <Head>
-        <title>Blog | {siteTitle}</title>
-        <meta property="og:title" content={`Blog | ${siteTitle}`} />
+        <title>Blog - {siteTitle}</title>
+        <meta property="og:title" content={`Blog - ${siteTitle}`} />
         <meta property="og:type" content="blog" />
       </Head>
       <h1>All Posts</h1>

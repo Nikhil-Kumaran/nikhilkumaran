@@ -18,7 +18,7 @@ const Index = () => {
   return (
     <Layout>
       <Head>
-        <title>Home | {siteTitle}</title>
+        <title>Home - {siteTitle}</title>
         <meta property="og:title" content={name} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nikhilkumaran.vercel.app" />
