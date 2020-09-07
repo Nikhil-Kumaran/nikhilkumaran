@@ -15,17 +15,26 @@ const MDXLayout = (frontMatter) => {
             {frontMatter.title} - {siteTitle}
           </title>
           <meta property="og:title" content={frontMatter.title} />
-          <meta property="og:type" content="blog" />
+          <meta property="og:type" content="article" />
           <meta
             property="og:url"
             content={`https://nikhilkumaran.vercel.app/${slug}`}
           />
+          <meta name="description" content={frontMatter.summary} />
           <meta property="og:description" content={frontMatter.summary} />
           <meta name="twitter:card" content="summary_large_image" />
           {frontMatter.image && (
             <meta
               property="og:image"
               content={`https://nikhilkumaran.vercel.app/images/blog/${frontMatter.image}`}
+            />
+          )}
+          {frontMatter.canonicalUrl ? (
+            <link rel="canonical" href={frontMatter.canonicalUrl} />
+          ) : (
+            <link
+              rel="canonical"
+              href={`https://nikhilkumaran.vercel.app/${slug}`}
             />
           )}
         </Head>

@@ -38,11 +38,6 @@ export default function Layout({ children, post, home }) {
     <div>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Frontend Engineer | ReactJS | Tech Writer/Speaker"
-        />
-        <meta name="og:title" content={siteTitle} />
         <meta name="twitter:site" content="@iNikhilKumaran" />
         <meta name="twitter:creator" content="@iNikhilKumaran" />
       </Head>

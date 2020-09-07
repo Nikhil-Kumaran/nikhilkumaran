@@ -30,6 +30,10 @@ const Index = () => {
           property="og:description"
           content="Frontend Engineer | ReactJS | Tech Writer/Speaker"
         />
+        <meta
+          name="description"
+          content="Frontend Engineer | ReactJS | Tech Writer/Speaker"
+        />
       </Head>
       <p>
         Hi 👋🏽 I'm Nikhil Kumaran, a Frontend Engineer at{" "}

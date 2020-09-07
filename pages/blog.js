@@ -19,7 +19,23 @@ const Blog = () => {
       <Head>
         <title>Blog - {siteTitle}</title>
         <meta property="og:title" content={`Blog - ${siteTitle}`} />
-        <meta property="og:type" content="blog" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://nikhilkumaran.vercel.app/blog"
+        />
+        <meta
+          property="og:image"
+          content="https://nikhilkumaran.vercel.app/images/profile.jpeg"
+        />
+        <meta
+          property="og:description"
+          content="List of all blog posts by Nikhil Kumaran"
+        />
+        <meta
+          name="description"
+          content="List of all blog posts by Nikhil Kumaran"
+        />
       </Head>
       <h1>All Posts</h1>
       <ul className={utilStyles.list}>
