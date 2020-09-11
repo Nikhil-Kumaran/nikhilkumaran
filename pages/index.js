@@ -36,14 +36,12 @@ const Index = () => {
         />
       </Head>
       <p>
-        Hi 👋🏽 I'm Nikhil Kumaran, a Frontend Engineer at{" "}
-        <a href="https://www.qubecinema.com/#Products">Qube Cinema</a>,
-        currently focussing on ReactJS. I'm a constant learner and I also
-        occasionally share my knowledge by writing blog posts, giving tech
-        talks, and contributing to open-source projects. Recently, I started
-        doing CSS arts which you can check out on{" "}
-        <a href="https://codepen.io/NikhilKumaran">Codepen</a>. Apart from code,
-        I'd like to play cards🃏, chess ♛, and badminton 🏸.
+        Hi 👋🏽 I'm Nikhil Kumaran, Frontend Engineer at{" "}
+        <a href="https://www.qubecinema.com/#Products">Qube Cinema</a>, with a
+        love for Reactjs. I'm a constant learner and I also occasionally share
+        my knowledge by writing blog posts, giving tech talks, and contributing
+        to open-source projects. Apart from code, I like to play cards🃏, chess
+        ♛, and badminton 🏸
       </p>
       <br />
       <div className={utilStyles.socialIcons}>

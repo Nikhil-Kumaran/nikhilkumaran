@@ -6,6 +6,8 @@ image: "custom-hooks.jpeg"
 canonicalUrl: "https://dev.to/nikhilkumaran/building-your-own-react-hooks-2pnj"
 ---
 
+import Codesandbox from "../../components/Codesandbox";
+
 ## Hooks
 
 Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.
@@ -33,6 +35,8 @@ Unfortunately, Firefox doesn't fully support **Clipboard API** so make sure you 
 
 You can view the end result here - https://7lyrf.csb.app/
 When you click on `copy` button, the code will be copied to your clipboard and you can paste it anywhere. Note that when you try to click the `copy` button within the `codesandbox` you will get permission denied, so open the output link in the new tab and interact with it.
+
+<Codesandbox src="https://codesandbox.io/embed/custom-react-hook-7lyrf" />
 
 Let's first look at the `Clipboard.js` file. Clipboard API does asynchronous read from and write to the system clipboard. So I'm setting `isCopied` state to `true` when our text is copied successfully and setting it to `false` when there is an error.
 
