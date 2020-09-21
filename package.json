@@ -5,7 +5,7 @@
   "license": "MIT",
   "author": {
     "name": "Nikhil Kumaran S",
-    "url": "http://nikhilkumaran.vercel.app/"
+    "url": "https://nikhilkumaran.dev"
   },
   "scripts": {
     "dev": "rm -rf .next && rm -rf .mdx-data && next dev",

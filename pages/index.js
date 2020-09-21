@@ -21,10 +21,10 @@ const Index = () => {
         <title>Home - {siteTitle}</title>
         <meta property="og:title" content={name} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://nikhilkumaran.vercel.app" />
+        <meta property="og:url" content="https://nikhilkumaran.dev" />
         <meta
           property="og:image"
-          content="https://nikhilkumaran.vercel.app/images/profile.jpeg"
+          content="https://nikhilkumaran.dev/images/profile.jpeg"
         />
         <meta
           property="og:description"

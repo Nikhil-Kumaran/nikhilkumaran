@@ -22,11 +22,11 @@ const Blog = () => {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content="https://nikhilkumaran.vercel.app/blog"
+          content="https://nikhilkumaran.dev/blog"
         />
         <meta
           property="og:image"
-          content="https://nikhilkumaran.vercel.app/images/profile.jpeg"
+          content="https://nikhilkumaran.dev/images/profile.jpeg"
         />
         <meta
           property="og:description"

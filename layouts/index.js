@@ -18,7 +18,7 @@ const MDXLayout = (frontMatter) => {
           <meta property="og:type" content="article" />
           <meta
             property="og:url"
-            content={`https://nikhilkumaran.vercel.app/${slug}`}
+            content={`https://nikhilkumaran.dev/${slug}`}
           />
           <meta name="description" content={frontMatter.summary} />
           <meta property="og:description" content={frontMatter.summary} />
@@ -26,7 +26,7 @@ const MDXLayout = (frontMatter) => {
           {frontMatter.image && (
             <meta
               property="og:image"
-              content={`https://nikhilkumaran.vercel.app/images/blog/${frontMatter.image}`}
+              content={`https://nikhilkumaran.dev/images/blog/${frontMatter.image}`}
             />
           )}
           {frontMatter.canonicalUrl ? (
@@ -34,7 +34,7 @@ const MDXLayout = (frontMatter) => {
           ) : (
             <link
               rel="canonical"
-              href={`https://nikhilkumaran.vercel.app/${slug}`}
+              href={`https://nikhilkumaran.dev/${slug}`}
             />
           )}
         </Head>
