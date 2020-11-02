@@ -7,6 +7,10 @@
     "name": "Nikhil Kumaran S",
     "url": "https://nikhilkumaran.dev"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Nikhil-Kumaran/nikhilkumaran"
+  },
   "scripts": {
     "dev": "rm -rf .next && rm -rf .mdx-data && next dev",
     "build": "next build",
