@@ -4,15 +4,11 @@ import { GA_TRACKING_ID } from "../utils/gtag";
 
 export default class MyDocument extends Document {
   render() {
-    console.log("GA_TRACKING_ID", GA_TRACKING_ID);
     return (
       <Html>
         <Head>
           {/* Global Site Tag (gtag.js) - Google Analytics */}
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-          />
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -22,7 +18,7 @@ export default class MyDocument extends Document {
             gtag('config', '${GA_TRACKING_ID}', {
               page_path: window.location.pathname,
             });
-          `,
+          `
             }}
           />
         </Head>

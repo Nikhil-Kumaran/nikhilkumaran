@@ -22,63 +22,33 @@ const Index = () => {
         <meta property="og:title" content={name} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nikhilkumaran.dev" />
-        <meta
-          property="og:image"
-          content="https://nikhilkumaran.dev/images/profile.jpeg"
-        />
-        <meta
-          property="og:description"
-          content="Frontend Engineer | ReactJS | Tech Writer/Speaker"
-        />
-        <meta
-          name="description"
-          content="Frontend Engineer | ReactJS | Tech Writer/Speaker"
-        />
+        <meta property="og:image" content="https://nikhilkumaran.dev/images/nikhil.png" />
+        <meta property="og:description" content="Frontend developer | ReactJS | Tech Writer/Speaker | Mentor" />
+        <meta name="description" content="Frontend developer | ReactJS | Tech Writer/Speaker | Mentor" />
       </Head>
       <p>
-        Hi 👋🏽 I'm Nikhil Kumaran, Frontend Engineer at{" "}
-        <a href="https://www.qubecinema.com/#Products">Qube Cinema</a>, with a
-        love for Reactjs. I'm a constant learner and I also occasionally share
-        my knowledge by writing blog posts, giving tech talks, and contributing
-        to open-source projects. Apart from code, I like to play cards🃏, chess
-        ♛, and badminton 🏸
+        Hi, I'm Nikhil Kumaran S, Frontend developer with expertise in Reactjs. I currently work at <a href="https://www.cloudera.com">Cloudera</a>. I
+        have a passion for knowledge sharing. I share my knowledge by writing blog posts, giving tech talks at conferences, and mentoring people on
+        Frontend development.
       </p>
       <br />
       <div className={utilStyles.socialIcons}>
-        <a
-          className={`${utilStyles.socialIcon} ${utilStyles.twitter}`}
-          href="https://twitter.com/iNikhilKumaran"
-        >
+        <a className={`${utilStyles.socialIcon} ${utilStyles.twitter}`} href="https://twitter.com/iNikhilKumaran">
           <Twitter />
         </a>
-        <a
-          className={`${utilStyles.socialIcon} ${utilStyles.github}`}
-          href="https://github.com/Nikhil-Kumaran"
-        >
+        <a className={`${utilStyles.socialIcon} ${utilStyles.github}`} href="https://github.com/Nikhil-Kumaran">
           <GitHub />
         </a>
-        <a
-          className={`${utilStyles.socialIcon} ${utilStyles.linkedin}`}
-          href="https://www.linkedin.com/in/nikhilkumaran"
-        >
+        <a className={`${utilStyles.socialIcon} ${utilStyles.linkedin}`} href="https://www.linkedin.com/in/nikhilkumaran">
           <LinkedIn />
         </a>
-        <a
-          className={`${utilStyles.socialIcon} ${utilStyles.npm}`}
-          href="https://www.npmjs.com/~nikhil-kumaran"
-        >
+        <a className={`${utilStyles.socialIcon} ${utilStyles.npm}`} href="https://www.npmjs.com/~nikhil-kumaran">
           <Npm />
         </a>
-        <a
-          className={`${utilStyles.socialIcon}`}
-          href="https://codepen.io/NikhilKumaran"
-        >
+        <a className={`${utilStyles.socialIcon}`} href="https://codepen.io/NikhilKumaran">
           <Pen />
         </a>
-        <a
-          className={`${utilStyles.socialIcon} ${utilStyles.dev}`}
-          href="https://dev.to/nikhilkumaran"
-        >
+        <a className={`${utilStyles.socialIcon} ${utilStyles.dev}`} href="https://dev.to/nikhilkumaran">
           <DEV />
         </a>
       </div>

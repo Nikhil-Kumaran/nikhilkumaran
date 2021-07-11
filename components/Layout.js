@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { siteTitle, name, themes } from "../utils/constants";
 import Link from "next/link";
 import styles from "./Layout.module.css";
-import Profile from "../public/images/profile.svg";
 import prismLight from "../styles/prismLight";
 import prismDark from "../styles/prismDark";
 
@@ -47,16 +46,13 @@ export default function Layout({ children, post, home }) {
             <div className={styles.logo}>
               <Link href="/">
                 <a>
-                  <Profile className={styles.headerImage} />
+                  <img src="https://nikhilkumaran.dev/images/nikhil.png" alt="nikhil image" className={styles.headerImage} />
                 </a>
               </Link>
               <h1>{name}</h1>
             </div>
             <div className={styles.headerMenus}>
-              <button
-                className={styles.toggleTheme}
-                onClick={handleThemeChange}
-              >
+              <button className={styles.toggleTheme} onClick={handleThemeChange}>
                 <div className={styles[theme]}></div>
               </button>
               <Link href="/blog">
