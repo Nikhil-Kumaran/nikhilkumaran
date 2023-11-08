@@ -26,10 +26,19 @@ const Index = () => {
         <meta property="og:description" content="Frontend developer | ReactJS | Tech Writer/Speaker | Mentor" />
         <meta name="description" content="Frontend developer | ReactJS | Tech Writer/Speaker | Mentor" />
       </Head>
-      <p>
-        Hi, I'm Nikhil Kumaran S, Frontend developer with expertise in Reactjs. I currently work at <a href="https://www.cloudera.com">Cloudera</a>. I
-        have a passion for knowledge sharing. I share my knowledge by writing blog posts, giving tech talks at conferences, and mentoring people on
-        Frontend development.
+      <p className="about">
+        <p>Hi, I'm Nikhil Kumaran S, Senior Frontend Developer, with expertise in React.js with TypeScript.</p>
+
+        <p>
+          I have 5 years of experience in architecting projects by bringing in the best tools, implementing best practices, and making apps scalable
+          and maintainable in the long run. This includes setting up the folder structure, state management, authentication, data fetching, routing,
+          rendering, styling, and testing.
+        </p>
+
+        <p>
+          Beyond coding, I'm passionate about community contribution, from writing educational blog posts to delivering tech talks and actively
+          supporting open-source initiatives.
+        </p>
       </p>
       <br />
       <div className={utilStyles.socialIcons}>
